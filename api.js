@@ -1,12 +1,13 @@
 const getButton = () => {
     const searchField = document.getElementById('search-field')
-    const searchValue = searchField.value
+    let searchValue = searchField.value
 
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchValue}`
 
     fetch(url)
         .then(res => res.json())
         .then(data => displayPhones(data.data))
+
 }
 
 const displayPhones = phones => {
@@ -29,6 +30,7 @@ const displayPhones = phones => {
         const cardsContainer = document.getElementById('cards-container')
         cardsContainer.appendChild(cards)
 
+
     }
 }
 const updateDetails = id => {
@@ -37,9 +39,13 @@ const updateDetails = id => {
         .then(res => res.json())
         .then(data => displayDetails(data.data))
 }
+
+const detailsDiv = document.createElement('div')
+detailsDiv.innerHTML = ''
 const displayDetails = details => {
-    const detailsDiv = document.createElement('div')
-    console.log();
+
+
+    console.log(detailsDiv);
     detailsDiv.innerHTML = `
     <div class="container">
     <div class="row">
@@ -50,15 +56,15 @@ const displayDetails = details => {
         <div class="col-7">
             <div class="">
                 <h1>${details.name}</h1>
-                <h3>Brand:${details.brand}</h3>
-                <p>Released 2021, September 24</p>
+                <h3>Brand: ${details.brand}</h3>
+                <p>${details.releaseDate}</p>
                 <h3>Features:</h3>
-                <p>>Storage: ${details.storage}</p>
-                <p>>Display:${details.displaySize}</p>
-                <p>>Chipset: ${details.chipSet}</p>
-                <p>>Memory:${details.memory}<p>
-                <h3>sensors:</h3>
-                <p>${details.sensors}</p>
+                <p>⦿ Storage: ${details.mainFeatures.storage}</p>
+                <p>⦿ Display:${details.mainFeatures.displaySize}</p>
+                <p>⦿ Chipset: ${details.mainFeatures.chipSet}</p>
+                <p>⦿ Memory:${details.mainFeatures.memory}<p>
+                <h3>Sensors:</h3>
+                <p>${details.mainFeatures.sensors}</p>
             </div>
         </div>
     </div>

@@ -15,17 +15,16 @@ const displayPhones = phones => {
         const cards = document.createElement('div')
         console.log(brand.phone_name);
         cards.innerHTML = `
-        <div class="col">
+        <div class="col shadow ">
         <div class="card h-100">
-                <img src="${brand.image}" class="card-img-top" alt="">
+                <img class="w-75 mx-auto mt-3 mb-3" src="${brand.image}" class="card-img-top" alt="">
             <div class="card-body">
-                <h5 class="card-title">Name: ${brand.phone_name}</h5>
-                <h5 class="card-title">Brand: ${brand.brand}</h5>
+                <h5 class="card-title text-center">Name: ${brand.phone_name}</h5>
+                <h5 class="card-title text-center">Brand: ${brand.brand}</h5>
 
             </div>
-            <div class="card-footer">
-                <button>Details</button>
-            </div>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+         Details</button>
         </div>
     </div>`
 

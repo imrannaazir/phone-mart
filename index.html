@@ -22,12 +22,32 @@
 
     <!-- search input field and button  -->
     <section>
-        <div height="100%" class="input-group mb-3 w-50 mx-auto my-auto mt-5">
-            <input type="text" class="form-control" placeholder="Type here to search" aria-label="Recipient's username"
-                aria-describedby="button-addon2">
-            <button class="btn btn-outline-primary" type="button" id="button-addon2">Search</button>
+
+        <div class="input-group mb-3 w-50 mx-auto my-auto mt-5">
+            <!-- input field  -->
+            <input id="search-field" type="text" class="form-control" placeholder="Type here to search"
+                aria-label="Recipient's username" aria-describedby="button-addon2">
+            <!-- search button  -->
+            <button onclick="getButton()" class="btn btn-outline-primary" type="button"
+                id="button-addon2">Search</button>
         </div>
     </section>
+
+
+    <!-- result cards -->
+
+    <section class="container">
+        <div id="cards-container" class="row row-cols-1 row-cols-md-3 g-4">
+
+
+
+
+
+        </div>
+    </section>
+
+
+
 
     <!-- JavaScript link  -->
     <script src="api.js"></script>

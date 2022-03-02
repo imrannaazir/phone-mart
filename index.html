@@ -20,6 +20,8 @@
                 style="color: rgb(241, 121, 141);">Mart</span></h1>
     </header>
 
+
+
     <!-- search input field and button  -->
     <section>
 
@@ -33,18 +35,31 @@
         </div>
     </section>
 
+    <!-- loading spinner  -->
+    <div id="spinner" class="text-center">
+        <img src="./spinner.gif" alt="">
+    </div>
+
+    <!-- search without keyword error handle -->
+    <div class="text-center" id="no-keyword">
+        <img width="300px" src="./no-key.png" alt="">
+    </div>
+
+    <!-- didn't find any result error handle  -->
+    <div class="text-center" id="not-found">
+        <img width="300px" src="./not-found.png" alt="">
+    </div>
+
+
 
     <!-- result cards -->
 
     <section class="container">
         <div id="cards-container" class="row row-cols-1 row-cols-md-3 g-4">
 
-
-
-
-
         </div>
     </section>
+
 
 
     <!-- Modal -->
@@ -64,13 +79,16 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button onclick="clearModal()" type="button" class="btn btn-secondary"
+                    <button onclick="" type="button" class="btn btn-outline-primary"
                         data-bs-dismiss="modal">Close</button>
 
                 </div>
             </div>
         </div>
     </div>
+
+
+    <div id="see-more" class="text-center mt-5 mb-5">See More →</div>
 
 
 
@@ -81,7 +99,7 @@
 
 
     <!-- JavaScript link  -->
-    <script src="api.js"></script>
+    <script src="app.js"></script>
     <!-- bootstrap js link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

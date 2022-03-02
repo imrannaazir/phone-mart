@@ -1,51 +1,81 @@
+// loading spinner and common functions:
+// function for spinning
+const toggleSpinner = displaySpinner => {
+    const spinner = document.getElementById('spinner').style.display = displaySpinner;
+}
+
+// function for no keyword 
+const toggleNoKey = displayNoKey => {
+    const noKeyword = document.getElementById('no-keyword').style.display = displayNoKey
+}
+
+// function for not founded 
+const toggleNotFound = displayNotFound => {
+    const notFound = document.getElementById('not-found').style.display = displayNotFound
+}
+
+// function for clear previous result 
+const clearResult = () => {
+    const cardsContainer = document.getElementById('cards-container').textContent = ''
+}
+
 // Search button event listener 
 const getButton = () => {
+
     const searchField = document.getElementById('search-field')
+
     let searchValue = searchField.value
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchValue}`
-    searchField.value = ''
+    if (searchValue === '') {
+        clearResult();
+        toggleSpinner('none')
+        toggleNoKey('block')
+        toggleNotFound('none')
+    }
+    else {
+        toggleSpinner('block')
+        toggleNoKey('none')
+        toggleNotFound('none')
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchValue}`
+        searchField.value = ''
+        toggleSpinner('none')
 
 
-    //fetch frist api 
-    fetch(url)
-        .then(res => res.json())
-        .then(data => displayPhones(data.data))
+        //fetch frist api 
+        fetch(url)
+            .then(res => res.json())
+            .then(data => displayPhones(data.data))
+    }
 }
 
 
 // result showing in ux arrow function
 const displayPhones = phones => {
-
-    const cardsContainer = document.getElementById('cards-container').textContent = ''
-    for (const brand of phones) {
-        const cards = document.createElement('div')
-
-        cards.innerHTML = `
+    clearResult();
+    if (phones.length === 0) {
+        toggleNotFound('block')
+        toggleNoKey('none')
+    }
+    else {
+        for (const brand of phones) {
+            const cards = document.createElement('div')
+            cards.innerHTML = `
         <div class="col shadow ">
         <div class="card h-100">
                 <img class="w-75 mx-auto mt-3 mb-3" src="${brand.image}" class="card-img-top" alt="">
             <div class="card-body">
                 <h5 class="card-title text-center">Name: ${brand.phone_name}</h5>
                 <h5 class="card-title text-center">Brand: ${brand.brand}</h5>
-
             </div>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="updateDetails('${brand.slug}')">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="displayDetails('${brand.slug}')">
          Details</button>
         </div>
     </div>`
-        const cardsContainer = document.getElementById('cards-container')
-        cardsContainer.appendChild(cards)
+            const cardsContainer = document.getElementById('cards-container')
+            cardsContainer.appendChild(cards)
+            toggleSpinner('none')
 
-
+        }
     }
-}
-
-//fetch second api
-const updateDetails = id => {
-    const detailsUrl = `https://openapi.programming-hero.com/api/phone/${id}`
-    fetch(detailsUrl)
-        .then(res => res.json())
-        .then(data => displayDetails(data.data))
 }
 
 
@@ -54,6 +84,7 @@ detailsDiv.innerHTML = ''
 
 //display phone details on modal arrow function
 const displayDetails = details => {
+    console.log(details);
     if (typeof details.others === 'undefined') {
         detailsDiv.innerHTML = `
     <div class="container">
@@ -84,7 +115,6 @@ const displayDetails = details => {
             </div>
         </div>
     </div>
-
 </div>`
         const modalBody = document.getElementById('modal-body')
         modalBody.appendChild(detailsDiv)
@@ -119,11 +149,8 @@ const displayDetails = details => {
             </div>
         </div>
     </div>
-
 </div>`
         const modalBody = document.getElementById('modal-body')
         modalBody.appendChild(detailsDiv)
     }
 }
-
-// }

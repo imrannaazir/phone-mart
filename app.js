@@ -22,11 +22,12 @@ const clearResult = () => {
 const getButton = () => {
     const searchField = document.getElementById('search-field')
     let searchValue = searchField.value
+    toggleSpinner('block')
     if (searchValue === '') {
         clearResult();
-        toggleSpinner('none')
         toggleNoKey('block')
         toggleNotFound('none')
+        toggleSpinner('none')
     }
     else {
         toggleSpinner('block')
@@ -48,9 +49,11 @@ const getButton = () => {
 // result showing in ux arrow function
 const displayPhones = phones => {
     clearResult();
+    toggleSpinner('block')
     if (phones.length === 0) {
         toggleNotFound('block');
         toggleNoKey('none')
+        toggleSpinner('none')
     }
     else {
         const phoneLimit = phones.slice(0, 20);
@@ -72,6 +75,7 @@ const displayPhones = phones => {
     </div>`
             const cardsContainer = document.getElementById('cards-container')
             cardsContainer.appendChild(cards)
+            toggleSpinner('none')
 
         }
     }

@@ -1,18 +1,25 @@
+// Search button event listener 
 const getButton = () => {
     const searchField = document.getElementById('search-field')
     let searchValue = searchField.value
-
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchValue}`
+    searchField.value = ''
 
+
+    //fetch frist api 
     fetch(url)
         .then(res => res.json())
         .then(data => displayPhones(data.data))
-
 }
 
+
+// result showing in ux arrow function
 const displayPhones = phones => {
+
+    const cardsContainer = document.getElementById('cards-container').textContent = ''
     for (const brand of phones) {
         const cards = document.createElement('div')
+
         cards.innerHTML = `
         <div class="col shadow ">
         <div class="card h-100">
@@ -26,13 +33,14 @@ const displayPhones = phones => {
          Details</button>
         </div>
     </div>`
-
         const cardsContainer = document.getElementById('cards-container')
         cardsContainer.appendChild(cards)
 
 
     }
 }
+
+//fetch second api
 const updateDetails = id => {
     const detailsUrl = `https://openapi.programming-hero.com/api/phone/${id}`
     fetch(detailsUrl)
@@ -40,48 +48,82 @@ const updateDetails = id => {
         .then(data => displayDetails(data.data))
 }
 
+
 const detailsDiv = document.createElement('div')
 detailsDiv.innerHTML = ''
+
+//display phone details on modal arrow function
 const displayDetails = details => {
-
-
-    console.log(detailsDiv);
-    detailsDiv.innerHTML = `
+    if (typeof details.others === 'undefined') {
+        detailsDiv.innerHTML = `
     <div class="container">
     <div class="row">
-        <div class="col-5 text-center">
+        <div class="col-sm-12 col-lg-5 text-center">
             <img class="mt-3 mb-3" width="250px"
                 src="${details.image}" alt="">
         </div>
-        <div class="col-7">
+        <div class="col-sm-12 col-lg-7">
             <div class="">
-                <h1>${details.name}</h1>
-                <h3>Brand: ${details.brand}</h3>
-                <p>${details.releaseDate}</p>
+                <h1>${details?.name}</h1>
+                <h3>Brand: ${details?.brand}</h3>
+                <p class="text-muted">${details?.releaseDate}</p>
                 <h3>Features:</h3>
-                <p>⦿ Storage: ${details.mainFeatures.storage}</p>
-                <p>⦿ Display:${details.mainFeatures.displaySize}</p>
-                <p>⦿ Chipset: ${details.mainFeatures.chipSet}</p>
-                <p>⦿ Memory:${details.mainFeatures.memory}<p>
+                <p>⦿ Storage: ${details?.mainFeatures?.storage}</p>
+                <p>⦿ Display:${details?.mainFeatures?.displaySize}</p>
+                <p>⦿ Chipset: ${details?.mainFeatures?.chipSet}</p>
+                <p>⦿ Memory:${details?.mainFeatures?.memory}<p>
                 <h3>Sensors:</h3>
-                <p>${details.mainFeatures.sensors}</p>
+                <p>${details?.mainFeatures?.sensors}</p>
+                <h3>Others Info:</h3>
+                <p>⦿ WLAN: N/A</p>
+                <p>⦿ Bluetooth: N/A</p>
+                <p>⦿ GPS: N/A</p>
+                <p>⦿ NFC: N/A<p>
+                <p>⦿ Radio: N/A<p>
+                <p>⦿ USB: N/A<p>
             </div>
         </div>
     </div>
 
 </div>`
-    const modalBody = document.getElementById('modal-body')
-    modalBody.appendChild(detailsDiv)
+        const modalBody = document.getElementById('modal-body')
+        modalBody.appendChild(detailsDiv)
+    }
+    else {
+        detailsDiv.innerHTML = `
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-lg-5 text-center">
+            <img class="mt-3 mb-3" width="250px"
+                src="${details.image}" alt="">
+        </div>
+        <div class="col-sm-12 col-lg-7">
+            <div class="">
+                <h1>${details?.name}</h1>
+                <h3>Brand: ${details?.brand}</h3>
+                <p class="text-muted">${details?.releaseDate}</p>
+                <h3>Features:</h3>
+                <p>⦿ Storage: ${details?.mainFeatures?.storage}</p>
+                <p>⦿ Display:${details?.mainFeatures?.displaySize}</p>
+                <p>⦿ Chipset: ${details?.mainFeatures?.chipSet}</p>
+                <p>⦿ Memory:${details?.mainFeatures?.memory}<p>
+                <h3>Sensors:</h3>
+                <p>${details?.mainFeatures?.sensors}</p>
+                <h3>Others Info:</h3>
+                <p>⦿ WLAN: ${details?.others?.WLAN}</p>
+                <p>⦿ Bluetooth:${details?.others?.Bluetooth}</p>
+                <p>⦿ GPS: ${details?.others?.GPS}</p>
+                <p>⦿ NFC:${details?.others?.NFC}<p>
+                <p>⦿ Radio:${details?.others?.Radio}<p>
+                <p>⦿ USB:${details?.others?.USB}<p>
+            </div>
+        </div>
+    </div>
 
-
-
+</div>`
+        const modalBody = document.getElementById('modal-body')
+        modalBody.appendChild(detailsDiv)
+    }
 }
 
-
-const clearModal = () => {
-    const modalBody = document.createElement('modal-body').innerHTML = ''
-
-
-
-
-}
+// }
